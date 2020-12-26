@@ -1,6 +1,6 @@
 // init project - Laszlo
-var sqlite = require("sqlite3");
-var db = new sqlite.Database("/sandbox/src/db/database.sqlite");
+//var sqlite = require("sqlite3");
+//var db = new sqlite.Database("/sandbox/src/db/database.sqlite");
 var express = require("express");
 var Sequelize = require("sequelize");
 var app = express();
@@ -50,6 +50,7 @@ sequelize
 
 // populate database with default users
 function setup() {
+  return; // no setup
   User.sync({ force: true }) // Using 'force: true' for demo purposes. It drops the table users if it already exists and then creates a new one.
     .then(function () {
       // Add default users to the database
