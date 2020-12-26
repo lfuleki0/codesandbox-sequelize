@@ -1,4 +1,5 @@
-// init project
+// init project - Laszlo
+
 var express = require("express");
 var Sequelize = require("sequelize");
 var app = express();
@@ -37,7 +38,7 @@ var sequelize = new Sequelize(
 // authenticate with the database
 sequelize
   .authenticate()
-  .then(function(err) {
+  .then(function (err) {
     console.log("Connection established.");
     // define new table: 'users'
     User = sequelize.define("users", {
@@ -47,14 +48,14 @@ sequelize
     });
     setup();
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.log("Unable to connect to database: ", err);
   });
 
 // populate database with default users
 function setup() {
   User.sync({ force: true }) // Using 'force: true' for demo purposes. It drops the table users if it already exists and then creates a new one.
-    .then(function() {
+    .then(function () {
       // Add default users to the database
       for (var i = 0; i < users.length; i++) {
         // loop through all users
@@ -64,32 +65,32 @@ function setup() {
 }
 
 // Send user data - used by client.js
-app.get("/users", function(request, response) {
-  User.findAll().then(function(users) {
+app.get("/users", function (request, response) {
+  User.findAll().then(function (users) {
     // finds all entries in the users table
     response.send(users); // sends users back to the page
   });
 });
 
 // create a new entry in the users table
-app.post("/new", urlencodedParser, function(request, response) {
+app.post("/new", urlencodedParser, function (request, response) {
   User.create({ name: request.body.user });
   response.redirect("/");
 });
 
 // drops the table users if it already exists and creates a new table with just the default users
-app.get("/reset", function(request, response) {
+app.get("/reset", function (request, response) {
   users = defaultUsers.slice();
   setup();
   response.redirect("/");
 });
 
 // Serve the root url: http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function(request, response) {
+app.get("/", function (request, response) {
   response.sendFile("/sandbox/views/index.html");
 });
 
 // Listen on port 8080
-var listener = app.listen(8080, function() {
+var listener = app.listen(8080, function () {
   console.log("Listening on port " + listener.address().port);
 });
