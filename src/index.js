@@ -1,5 +1,6 @@
 // init project - Laszlo
-
+var sqlite = require("sqlite3");
+var db = new sqlite.Database("/sandbox/src/db/database.sqlite");
 var express = require("express");
 var Sequelize = require("sequelize");
 var app = express();
@@ -29,7 +30,6 @@ var sequelize = new Sequelize("database", "Laszlo", "mylaszlosecret", {
   // someone forks your app. So don't use it to store sensitive information.
   storage: "/sandbox/src/db/database.sqlite"
 });
-sequeliz;
 
 // authenticate with the database
 sequelize
